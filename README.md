@@ -33,7 +33,7 @@ sequenceDiagram
     CARO (VRS Service Provider 2)->>CARO (Tenant 2): Create ATP VP
     CARO (VRS Service Provider 2)-->>CARO (VRS Service Provider 1): Transfer VP
     CARO (VRS Service Provider 1)->>CARO (Tenant 1): Verify ATP VP
-```mermaid
+```
 
 
 ### MOVILITAS
@@ -52,7 +52,7 @@ sequenceDiagram
     MOVILITAS->>CARO (VRS Service Provider 2): Create Responder VP
     MOVILITAS-->>CARO (VRS Service Provider 1): Transfer Responder VP
     CARO (VRS Service Provider 1)->>CARO (VRS Service Provider 1): Verify Responder ATP VP
-```mermaid
+```
 
 
 ## Load Testing Scenarios
