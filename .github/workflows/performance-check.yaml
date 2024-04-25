@@ -1,4 +1,4 @@
-name: Deploy test-flight
+name: Performance check VRS (CARO)
 
 on:
   workflow_dispatch:
