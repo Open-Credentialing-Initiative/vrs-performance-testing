@@ -14,6 +14,7 @@ jobs:
         uses: grafana/k6-action@v0.3.1
         with:
           filename: vrs.js
+          flags: "--include-system-env-vars"
           cloud: true
           token: ${{ secrets.K6_CLOUD_TOKEN }}
         env:
