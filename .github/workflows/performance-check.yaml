@@ -29,3 +29,4 @@ jobs:
           VRS_5_CLIENT_SECRET: ${{ secrets.VRS_5_CLIENT_SECRET }}
           AUTH_HOST: "auth.caro.vegas"
           CARO_HOST: "https://api.caro.vegas"
+          TEST_SYSTEM: "CARO"
