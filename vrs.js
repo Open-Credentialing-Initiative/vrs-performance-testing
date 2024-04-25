@@ -5,7 +5,7 @@ import { setup as setupCaro, vrsRoundTrip as caroVrsRoundTrip } from './vrs-prov
 export const options = {
   ext: {
     loadimpact: {
-      projectID: 3644584,
+      projectID: 3692993,
     },
   },
   stages: [

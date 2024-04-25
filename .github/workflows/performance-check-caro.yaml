@@ -15,6 +15,8 @@ jobs:
         with:
           filename: vrs.js
           flags: "--include-system-env-vars"
+          cloud: true
+          token: ${{ secrets.K6_CLOUD_TOKEN }}
         env:
           VRS_1_CLIENT_ID: ${{ secrets.VRS_1_CLIENT_ID }}
           VRS_2_CLIENT_ID: ${{ secrets.VRS_2_CLIENT_ID }}
