@@ -23,6 +23,11 @@ jobs:
           VRS_3_CLIENT_ID: ${{ secrets.VRS_3_CLIENT_ID }}
           VRS_4_CLIENT_ID: ${{ secrets.VRS_4_CLIENT_ID }}
           VRS_5_CLIENT_ID: ${{ secrets.VRS_5_CLIENT_ID }}
+          TENANT_1_DID: ${{ secrets.TENANT_1_DID }}
+          TENANT_2_DID: ${{ secrets.TENANT_2_DID }}
+          TENANT_3_DID: ${{ secrets.TENANT_3_DID }}
+          TENANT_4_DID: ${{ secrets.TENANT_4_DID }}
+          TENANT_5_DID: ${{ secrets.TENANT_5_DID }}
           VRS_1_CLIENT_SECRET: ${{ secrets.VRS_1_CLIENT_SECRET }}
           VRS_2_CLIENT_SECRET: ${{ secrets.VRS_2_CLIENT_SECRET }}
           VRS_3_CLIENT_SECRET: ${{ secrets.VRS_3_CLIENT_SECRET }}
