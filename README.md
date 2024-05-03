@@ -9,49 +9,56 @@ This repository contains k6 scripts for performance testing of the OCI VRS crite
 The script in this repository is specifically designed to test the OCI VRS criteria, ensuring that the system can handle the expected load and perform optimally under stress.
 
 
-## Suppported VRS Flows with k6
+## VRS Flow
 
-This repository contains the flows for the following VRS provider flows:
+This repository contains the basic setup for testing out the VRS flow between different providers. The script will simulate the following flows:
 
-### CARO standalone
-
-This flow is used to test the CARO standalone provider flow. The script will simulate the following flows:
-
-It mimics the exchange between a Tenant (Wholesaler/Dispenser) via 2 service providers which acting as the VRS system. The first service provider creates an ATP VP and transfers it to the second service provider. The second service provider then verifies the ATP VP and creates a new ATP VP, which is then transferred back to the first service provider for verification.
-
-It checks the basic functionality of the CARO wallets and the VP verification process.
 
 ```mermaid
 sequenceDiagram
-    participant CARO (Tenant 1)
-    participant CARO (VRS Service Provider 1)
-    participant CARO (VRS Service Provider 2)
-    participant CARO (Tenant 2)
-    CARO (VRS Service Provider 1)->>CARO (Tenant 1): Create ATP VP
-    CARO (VRS Service Provider 1)-->>CARO (VRS Service Provider 2): Transfer VP
-    CARO (VRS Service Provider 2)->>CARO (Tenant 2): Verify ATP VP
-    CARO (VRS Service Provider 2)->>CARO (Tenant 2): Create ATP VP
-    CARO (VRS Service Provider 2)-->>CARO (VRS Service Provider 1): Transfer VP
-    CARO (VRS Service Provider 1)->>CARO (Tenant 1): Verify ATP VP
+    participant Wallet Provider (Requester)
+    participant VRS Provider 1
+    participant VRS Provider 2
+    participant Wallet Provider (Responder)
+    VRS Provider 1->>Wallet Provider (Requester): Request ATP VP
+    Wallet Provider (Requester)->>Wallet Provider (Requester): Fetch ATP VC and sign VP
+    Wallet Provider (Requester)->>VRS Provider 1: Return ATP VP
+    VRS Provider 1->>VRS Provider 2: Transfer VP to responder VRS
+    VRS Provider 2->>VRS Provider 2: Verify PI
+    VRS Provider 2->>VRS Provider 2: Verify VP
+    VRS Provider 2->>Wallet Provider (Responder): Send VP for verification
+    Wallet Provider (Responder)->>Wallet Provider (Responder): Verify VP against OCI criteria
+    Wallet Provider (Responder)->>VRS Provider 2: Return verification result
+    VRS Provider 2->>Wallet Provider (Responder): Request Responder ATP VP
+    Wallet Provider (Responder)->>Wallet Provider (Responder): Fetch ATP VC and sign VP
+    Wallet Provider (Responder)->>VRS Provider 2: Return Responder ATP VP
+    VRS Provider 2->>VRS Provider 1: Transfer VP to requester VRS
+    VRS Provider 1->>VRS Provider 1: Verify VP
+    VRS Provider 1->>Wallet Provider (Requester): Send VP for verification
+    Wallet Provider (Requester)->>Wallet Provider (Requester): Verify VP against OCI criteria
+    Wallet Provider (Requester)->>VRS Provider 1: Return verification result
 ```
 
+## Setup
 
-### MOVILITAS
+To install k6 on your local machine, follow the instructions on the [k6 website](https://k6.io/docs/getting-started/installation/).
 
-This flow uses the MOVILITAS VRS system to test the whole process of creating and verifying ATP VPs. The script will simulate the following flows:
+After installing k6 you need to adjust the code in the `vrs.js` file to match the correct URLs for the VRS providers. The following environment variables need to be set:
 
-```mermaid
-sequenceDiagram
-    participant CARO (VRS Service Provider 1)
-    participant MOVILITAS
-    participant CARO (VRS Service Provider 2)
-    CARO (VRS Service Provider 1)->>CARO (VRS Service Provider 1): Create Requester ATP VP
-    CARO (VRS Service Provider 1)-->>MOVILITAS: Transfer Requester VP
-    MOVILITAS->>CARO (VRS Service Provider 2): Verify Requester VP
-    MOVILITAS->>MOVILITAS: Verify PI and transfer request to responder
-    MOVILITAS->>CARO (VRS Service Provider 2): Create Responder VP
-    MOVILITAS-->>CARO (VRS Service Provider 1): Transfer Responder VP
-    CARO (VRS Service Provider 1)->>CARO (VRS Service Provider 1): Verify Responder ATP VP
+- `WALLET_HOST`: The URL wallet provider host
+- `VP_GENERATE_ENDPOINT`: The path to the vp generation endpoint of the wallet host.
+- `VP_VERIFY_ENDPOINT`: The path to the vp verification endpoint of the wallet host.
+- `REQUESTER_DID`: The DID of the requester.
+- `RESPONDER_DID`: The DID of the responder.
+
+You can find the documented flow in the `vrs.js` file.
+
+## Running the Tests
+
+To run the tests, execute the following command:
+
+```bash
+k6 run vrs.js
 ```
 
 

@@ -2,11 +2,6 @@
   "name": "oci-test-harness",
   "version": "0.0.1",
   "description": "Repo for providing scripts to ensure VRS performance criteria for different providers",
-  "main": "index.js",
-  "scripts": {
-    "k6:cloud:vrs:caro": "k6 cloud --include-system-env-vars vrs.js",
-    "k6:cloud:vrs:movilitas": "k6 cloud --include-system-env-vars vrs.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Open-Credentialing-Initiative/oci-test-harness.git"
