@@ -8,11 +8,9 @@ This repository contains k6 scripts for performance testing of the OCI VRS crite
 
 The script in this repository is specifically designed to test the OCI VRS criteria, ensuring that the system can handle the expected load and perform optimally under stress.
 
-
 ## VRS Flow
 
 This repository contains the basic setup for testing out the VRS flow between different providers. The script will simulate the following flows:
-
 
 ```mermaid
 sequenceDiagram
@@ -23,17 +21,17 @@ sequenceDiagram
     VRS Provider 1->>Wallet Provider (Requester): Request ATP VP
     Wallet Provider (Requester)->>Wallet Provider (Requester): Fetch ATP VC and sign VP
     Wallet Provider (Requester)->>VRS Provider 1: Return ATP VP
-    VRS Provider 1->>VRS Provider 2: Transfer VP to responder VRS
-    VRS Provider 2->>VRS Provider 2: Verify PI
-    VRS Provider 2->>VRS Provider 2: Verify VP
+    VRS Provider 1->>VRS Provider 1: Generate PI Verification Request Body
+    VRS Provider 1->>VRS Provider 2: Transfer VP + PI Payload to responder VRS
     VRS Provider 2->>Wallet Provider (Responder): Send VP for verification
     Wallet Provider (Responder)->>Wallet Provider (Responder): Verify VP against OCI criteria
     Wallet Provider (Responder)->>VRS Provider 2: Return verification result
+    VRS Provider 2->>VRS Provider 2: Verify PI Body
     VRS Provider 2->>Wallet Provider (Responder): Request Responder ATP VP
     Wallet Provider (Responder)->>Wallet Provider (Responder): Fetch ATP VC and sign VP
     Wallet Provider (Responder)->>VRS Provider 2: Return Responder ATP VP
-    VRS Provider 2->>VRS Provider 1: Transfer VP to requester VRS
-    VRS Provider 1->>VRS Provider 1: Verify VP
+    VRS Provider 2->>VRS Provider 2: Generate PI Verification Response Body
+    VRS Provider 2->>VRS Provider 1: Transfer VP + PI response payload to requester VRS
     VRS Provider 1->>Wallet Provider (Requester): Send VP for verification
     Wallet Provider (Requester)->>Wallet Provider (Requester): Verify VP against OCI criteria
     Wallet Provider (Requester)->>VRS Provider 1: Return verification result
