@@ -31,10 +31,11 @@ sequenceDiagram
     Wallet Provider (Responder)->>Wallet Provider (Responder): Fetch ATP VC and sign VP
     Wallet Provider (Responder)->>VRS Provider 2: Return Responder ATP VP
     VRS Provider 2->>VRS Provider 2: Generate PI Verification Response Body
-    VRS Provider 2->>VRS Provider 1: Transfer VP + PI response payload to requester VRS
+    VRS Provider 2->>VRS Provider 1: Transfer VP + PI Payload to requester VRS
     VRS Provider 1->>Wallet Provider (Requester): Send VP for verification
     Wallet Provider (Requester)->>Wallet Provider (Requester): Verify VP against OCI criteria
     Wallet Provider (Requester)->>VRS Provider 1: Return verification result
+    VRS Provider 1->>VRS Provider 1: Verify PI Body
 ```
 
 ## Setup
