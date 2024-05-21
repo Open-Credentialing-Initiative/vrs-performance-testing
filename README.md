@@ -52,6 +52,19 @@ After installing k6 you need to adjust the code in the `vrs.js` file to match th
 
 You can find the documented flow in the `vrs.js` file.
 
+Additionally you need to implement the call to the PI verification endpoint in the `executeVRSEndpoint` function. This function should call the VRS endpoint which does the PI verification. You can uncomment the code in the function and replace the URL with the correct URL of the PI verification endpoint and adjust the request body to match the expected format of the endpoint. The verifiable presentation is passed as the parameter `vp` to the function, so that you can use the data in the call to the PI verification.
+
+If you need to pass an authorization header to the wallet or VRS endpoints, you can do so by adding the header to the `headers` object in the `executeVRSEndpoint` or in the `generateVp` and `verifyVp` functions in the `utils/wallet.js` file.
+
+```javascript
+    {
+      headers: {
+        'Content-Type': 'application/json'
+        'Authorization': 'Bearer <token>'
+      }
+    }
+```
+
 ## Running the Tests
 
 To run the tests, execute the following command:
@@ -76,3 +89,26 @@ The following stages are executed:
 - **Stage 2**: 10 VUs for 30 seconds
 - **Stage 3**: 20 VUs for 30 seconds
 - **Stage 4**: 40 VUs for 30 seconds (ramp-down for 5 seconds)
+
+## Interpreting the Results
+
+After running the tests, k6 will generate a summary of the test results. These results will be published as an HTML report in the "summary.html" file.
+
+The report will look like this:
+
+![k6 report](images/test-results.png)
+
+In the report itself you can browse through the different metrics that were collected during the test. The most important metrics are:
+
+- **req_count_vp_generate**: The amount of calls which were executed to generate a DSCSAAtpCredential VP.
+- **req_count_vp_verify**: The amount of calls which were executed to verify a DSCSAAtpCredential VP.
+- **req_count_pi_verify**: The amount of calls which were executed to do the PI verification.
+- **req_count_pi_verify**: The average duration of the calls to do the PI verification.
+- **req_duration_vp_generate**: The average duration of the calls to generate a DSCSAAtpCredential VP.
+- **req_duration_vp_verify**: The average duration of the calls to verify a DSCSAAtpCredential VP.
+- **roundtrip_count**: The amount of roundtrips that were executed during the test.
+- **roundtrip_duration**: The average duration of the roundtrips that were executed during the test.
+
+All times which are mentioned in the report are in milliseconds. You can additionally find the Max, Min, 90th and 95th percentile values for each metric.
+
+In the "Checks & Groups" tab you can find the results of the checks that were executed during the test. These checks are used to verify if the responses of the requests are correct. If a check fails, the test will fail. Currently the checks are only used to verify if the status code of the response is 200. If you want to add more checks, you can do so in the script.
