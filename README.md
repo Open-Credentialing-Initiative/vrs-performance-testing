@@ -103,7 +103,7 @@ In the report itself you can browse through the different metrics that were coll
 - **req_count_vp_generate**: The amount of calls which were executed to generate a DSCSAAtpCredential VP.
 - **req_count_vp_verify**: The amount of calls which were executed to verify a DSCSAAtpCredential VP.
 - **req_count_pi_verify**: The amount of calls which were executed to do the PI verification.
-- **req_count_pi_verify**: The average duration of the calls to do the PI verification.
+- **req_duration_pi_verify**: The average duration of the calls to do the PI verification.
 - **req_duration_vp_generate**: The average duration of the calls to generate a DSCSAAtpCredential VP.
 - **req_duration_vp_verify**: The average duration of the calls to verify a DSCSAAtpCredential VP.
 - **roundtrip_count**: The amount of roundtrips that were executed during the test.
