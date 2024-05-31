@@ -44,17 +44,20 @@ To install k6 on your local machine, follow the instructions on the [k6 website]
 
 After installing k6 you need to adjust the code in the `vrs.js` file to match the correct URLs for the VRS providers. The following environment variables need to be set:
 
-- `WALLET_HOST`: The URL wallet provider host
-- `VP_GENERATE_ENDPOINT`: The path to the vp generation endpoint of the wallet host.
-- `VP_VERIFY_ENDPOINT`: The path to the vp verification endpoint of the wallet host.
+- `REQUESTER_WALLET_HOST`: The URL of the requester wallet provider host
+- `REQUESTER_VP_GENERATE_ENDPOINT`: The path to the vp generation endpoint of the requester  wallet host.
+- `REQUESTER_VP_VERIFY_ENDPOINT`: The path to the vp verification endpoint of the requester  wallet host.
+- `RESPONDER_WALLET_HOST`: The URL of the responder wallet provider host
+- `RESPONDER_VP_GENERATE_ENDPOINT`: The path to the vp generation endpoint of the responder wallet host.
+- `RESPONDER_VP_VERIFY_ENDPOINT`: The path to the vp verification endpoint of the responder wallet host.
 - `REQUESTER_DID`: The DID of the requester.
 - `RESPONDER_DID`: The DID of the responder.
 
 You can find the documented flow in the `vrs.js` file.
 
-Additionally you need to implement the call to the PI verification endpoint in the `executeVRSEndpoint` function. This function should call the VRS endpoint which does the PI verification. You can uncomment the code in the function and replace the URL with the correct URL of the PI verification endpoint and adjust the request body to match the expected format of the endpoint. The verifiable presentation is passed as the parameter `vp` to the function, so that you can use the data in the call to the PI verification.
+Additionally you need to implement the call to the both Requester and Responder PI verification endpoint in the `executeRequesterVRSEndpoint` and `executeResponderVRSEndpoint` function. This function should call the VRS endpoint which does the PI verification. You can uncomment the code in the function and replace the URL with the correct URL of the PI verification endpoint and adjust the request body to match the expected format of the endpoint. The verifiable presentation is passed as the parameter `vp` to the function, so that you can use the data in the call to the PI verification.
 
-If you need to pass an authorization header to the wallet or VRS endpoints, you can do so by adding the header to the `headers` object in the `executeVRSEndpoint` or in the `generateVp` and `verifyVp` functions in the `utils/wallet.js` file.
+If you need to pass an authorization header to the wallet or VRS endpoints, you can do so by adding the header to the `headers` object in the `executeRequesterVRSEndpoint`, `executeResponderVRSEndpoint` or in the `generateVp` and `verifyVp` functions in the `utils/wallet.js` file.
 
 ```javascript
     {
@@ -100,12 +103,18 @@ The report will look like this:
 
 In the report itself you can browse through the different metrics that were collected during the test. The most important metrics are:
 
-- **req_count_vp_generate**: The amount of calls which were executed to generate a DSCSAAtpCredential VP.
-- **req_count_vp_verify**: The amount of calls which were executed to verify a DSCSAAtpCredential VP.
-- **req_count_pi_verify**: The amount of calls which were executed to do the PI verification.
-- **req_duration_pi_verify**: The average duration of the calls to do the PI verification.
-- **req_duration_vp_generate**: The average duration of the calls to generate a DSCSAAtpCredential VP.
-- **req_duration_vp_verify**: The average duration of the calls to verify a DSCSAAtpCredential VP.
+- **req_count_requester_vp_generate**: The amount of calls which were executed to generate a Requester DSCSAAtpCredential VP.
+- **req_count_requester_vp_verify**: The amount of calls which were executed to verify a Requester DSCSAAtpCredential VP.
+- **req_count_responder_vp_generate**: The amount of calls which were executed to generate a Responder DSCSAAtpCredential VP.
+- **req_count_responder_vp_verify**: The amount of calls which were executed to verify a Responder DSCSAAtpCredential VP.
+- **req_duration_requester_vp_generate**: The average duration of the calls to generate a Requester DSCSAAtpCredential VP.
+- **req_duration_requester_vp_verify**: The average duration of the calls to verify a Requester DSCSAAtpCredential VP.
+- **req_duration_responder_vp_generate**: The average duration of the calls to generate a Responder DSCSAAtpCredential VP.
+- **req_duration_responder_vp_verify**: The average duration of the calls to verify a Responder DSCSAAtpCredential VP.
+- **req_count_requester_pi_verify**: The amount of calls which were executed to do the Requester PI verification.
+- **req_duration_requester_pi_verify**: The average duration of the calls to do the Requester PI verification.
+- **req_count_responder_pi_verify**: The amount of calls which were executed to do the Responder PI verification.
+- **req_duration_responder_pi_verify**: The average duration of the calls to do the Responder PI verification.
 - **roundtrip_count**: The amount of roundtrips that were executed during the test.
 - **roundtrip_duration**: The average duration of the roundtrips that were executed during the test.
 
