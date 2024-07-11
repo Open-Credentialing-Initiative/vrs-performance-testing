@@ -93,6 +93,15 @@ The following stages are executed:
 - **Stage 3**: 20 VUs for 30 seconds
 - **Stage 4**: 40 VUs for 30 seconds (ramp-down for 5 seconds)
 
+## Contributing a Report
+
+If you want to contribute a report to the repository, you can do so by running the tests and committing the generated report to the repository. The report will be generated in the "summary.html" file. Please open the file in a browser and export/print the report to a PDF file. Commit the PDF file to the repository under the "reports" folder.
+
+The file follows a naming convention of `<year>_<quater>_<alphabetic fruit name>_<vu amount>_<duration>.pdf` for example `2024_Q3_Apple_10VU_2m.pdf`.
+
+Create a pull request with the generated report and the report will be reviewed and merged into the repository.
+
+
 ## Interpreting the Results
 
 After running the tests, k6 will generate a summary of the test results. These results will be published as an HTML report in the "summary.html" file.
