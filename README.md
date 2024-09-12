@@ -38,7 +38,7 @@ sequenceDiagram
     VRS Provider 1->>VRS Provider 1: Verify PI Body
 ```
 
-## Setup
+## Set-up
 
 To install k6 on your local machine, follow the instructions on the [k6 website](https://k6.io/docs/getting-started/installation/).
 
@@ -95,11 +95,15 @@ The following stages are executed:
 
 ## Contributing a Report
 
-If you want to contribute a report to the repository, you can do so by running the tests and committing the generated report to the repository. The report will be generated in the "summary.html" file. Please open the file in a browser and export/print the report to a PDF file. Commit the PDF file to the repository under the "reports" folder.
+If you want to contribute a report to the repository, you can do so by running the tests and committing the generated detail report to the repository. The report will be generated in the "summary.html" file. Please open the file in a browser and export/print the report to a PDF file. Commit the PDF file to the repository under the "reports" folder.
 
 The file follows a naming convention of `<year>_<quater>_<alphabetic fruit name>_<vu amount>_<duration>.pdf` for example `2024_Q3_Apple_10VU_2m.pdf`.
 
-Create a pull request with the generated report and the report will be reviewed and merged into the repository.
+In addition, you can submit a summary report that is easier to understand by non-technical people. Complete the [template](https://docs.google.com/document/d/1saxX4BzR0RRY4zYQdEZLOoLsVU8-Zmc_-9ne-GtGU3k/template/preview), create a PDF file, and upload it together with the detail report.
+
+The file follows a naming convention of `<year>_<quater>_<alphabetic fruit name>_<vu amount>_<duration>_<Summary>.pdf` for example `2024_Q3_Apple_10VU_2m_Summary.pdf`.
+
+Create a pull request with the generated report(s) for review and release into the repository by the OCI team.
 
 
 ## Interpreting the Results
